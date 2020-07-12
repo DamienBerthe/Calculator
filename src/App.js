@@ -16,7 +16,12 @@ function App() {
 
   function filter(x, y) {
     if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true) {
-      return x
+      if(x.charAt(x.length - 1) === y){
+        return x
+      }
+      else{
+        return x.slice(0, x.length - 2)+y
+      }
     }
     else {
       if (x.charAt(x.length - 1) === y) {
