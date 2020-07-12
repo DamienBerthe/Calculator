@@ -15,21 +15,22 @@ function App() {
   }
 
   function filter(x, y) {
-
-    if (x.charAt(x.length - 1) === y) {
+    if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true) {
       return x
     }
-    else if (((x.charAt(x.length - 1)) === '-' && /[+*/]/.test(y) === true)||
-    (/[+*/]/.test(x.charAt(x.length - 1)) === true && /[+*/]/.test(y) === true && x.charAt(x.length - 1) !== y)) {
-      return x.slice(0, x.length - 1) + y
+    else {
+      if (x.charAt(x.length - 1) === y) {
+        return x
+      }
+      else if (((x.charAt(x.length - 1)) === '-' && /[+*/]/.test(y) === true) ||
+        (/[+*/]/.test(x.charAt(x.length - 1)) === true && /[+*/]/.test(y) === true && x.charAt(x.length - 1) !== y)) {
+        return x.slice(0, x.length - 1) + y
+      }
+      else if (/[+]/.test(x.charAt(x.length - 1)) === true && y === '-') {
+        return x.slice(0, x.length - 1) + y
+      }
+      else return x + y
     }
-  //  else if () {
-  //    return x.slice(0, x.length - 1) + y
-  //  }
-  //  else if (/[+*/]/.test(x.charAt(x.length - 1)) === true && y === '-') {
-  //    return x + y
-  //  }
-    else return x + y
   }
 
   function calcul(x) {
@@ -51,10 +52,16 @@ function App() {
         {//<button onClick={()=> setExpression(expression=>[...expression, '+'])}>{"+"}</button>
         }
         <button onClick={() => setExpression(expression + '.')}>{"."}</button>
-        <button onClick={() => setExpression(expression + '+')}>{"+"}</button>
-        <button onClick={() => setExpression(expression + '-')}>{"-"}</button>
-        <button onClick={() => setExpression(expression + '*')}>{"*"}</button>
-        <button onClick={() => setExpression(expression + '/')}>{"/"}</button>
+        {/*<button onClick={() => setExpression(expression + '+')}>{"+"}</button>
+           <button onClick={() => setExpression(expression + '-')}>{"-"}</button>
+           <button onClick={() => setExpression(expression + '*')}>{"*"}</button>
+           <button onClick={() => setExpression(expression + '/')}>{"/"}</button>
+      */}
+        <button onClick={() => setExpression(filter(expression, '+'))}>{"+"}</button>
+        <button onClick={() => setExpression(filter(expression, '-'))}>{"-"}</button>
+        <button onClick={() => setExpression(filter(expression, '*'))}>{"*"}</button>
+        <button onClick={() => setExpression(filter(expression, '/'))}>{"/"}</button>
+
         <button onClick={() => setTotal(splitter(expression))}>{"="}</button>
         <br />
        expression : {expression}
