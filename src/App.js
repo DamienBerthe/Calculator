@@ -38,6 +38,10 @@ function App() {
     }
   }
 
+  function stringToExpression(obj){
+    return Function('"use strict";return (' + obj + ')')();
+}
+
   function calcul(x) {
     let y = 0;
     for (let i = 0; i < x.length; i++) {
@@ -47,7 +51,6 @@ function App() {
     }
     return y;
   }
-
 
   return (
     <div>
@@ -67,15 +70,15 @@ function App() {
         <button onClick={() => setExpression(filter(expression, '*'))}>{"*"}</button>
         <button onClick={() => setExpression(filter(expression, '/'))}>{"/"}</button>
 
-        <button onClick={() => setTotal(splitter(expression))}>{"="}</button>
+        <button onClick={() => setTotal(stringToExpression(expression))}>{"="}</button>
         <br />
        expression : {expression}
         <br />
        total : {total[0]}
         <br />
         <div dangerouslySetInnerHTML={{ __html: splitter(expression) }} />
-        <br />
-        {filter('999/', '+')}
+        <br/>
+        {total}
       </p>
     </div>
   );
