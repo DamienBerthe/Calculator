@@ -3,16 +3,12 @@ import './App.css';
 
 function App() {
   const [expression, setExpression] = useState('');
-  const [total, setTotal] = useState(0);
+  //const [total, setTotal] = useState(0);
   const x = [];
   for (let i = 0; i < 10; i++) {
     x.push(i)
   }
   const y = x.map(kek => <button onClick={() => setExpression(expression + kek)}>{kek}</button>)
-
-  function splitter(x) {
-    return x.split(/[+*/-]/)
-  }
 
   function filter(x, y) {
     if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true) {
@@ -37,20 +33,11 @@ function App() {
       else return x + y
     }
   }
-
+  
   function stringToExpression(obj){
+    // eslint-disable-next-line
     return Function('"use strict";return (' + obj + ')')();
 }
-
-  function calcul(x) {
-    let y = 0;
-    for (let i = 0; i < x.length; i++) {
-      if (Number.isInteger(x[i]) === true) {
-        y += x[i]
-      }
-    }
-    return y;
-  }
 
   return (
     <div>
@@ -70,15 +57,15 @@ function App() {
         <button onClick={() => setExpression(filter(expression, '*'))}>{"*"}</button>
         <button onClick={() => setExpression(filter(expression, '/'))}>{"/"}</button>
 
-        <button onClick={() => setTotal(stringToExpression(expression))}>{"="}</button>
+        {//<button onClick={() => setTotal(stringToExpression(expression))}>{"="}</button>
+}
+        <button onClick={() =>setExpression(stringToExpression(expression).toString())}>{"="}</button>
         <br />
-       expression : {expression}
-        <br />
-       total : {total[0]}
+        {expression}
+       {/*
         <br />
         <div dangerouslySetInnerHTML={{ __html: splitter(expression) }} />
-        <br/>
-        {total}
+       */}
       </p>
     </div>
   );
