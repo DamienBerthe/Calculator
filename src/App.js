@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [expression, setExpression] = useState('');
+  const [expression, setExpression] = useState('0');
   //const [total, setTotal] = useState(0);
   const x = [];
   for (let i = 1; i < 10; i++) {
@@ -11,7 +11,7 @@ function App() {
   const y = x.map(kek => <button onClick={() => setExpression(filter(expression, kek))}>{kek}</button>)
 
   function filter(x, y) {
-    if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true) {
+    if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true && /[+*/-]/.test(y) === true) {
       if(x.charAt(x.length - 1) === y){
         return x
       }
@@ -53,7 +53,7 @@ function App() {
       <p>
         {y}
         <button onClick={() => setExpression(filter(expression, '0'))}>{'0'}</button>
-        <button onClick={() => setExpression("")}>{"AC"}</button>
+        <button onClick={() => setExpression("0")}>{"AC"}</button>
         {//<button onClick={()=> setExpression(expression=>[...expression, '+'])}>{"+"}</button>
         }
         <button onClick={() => setExpression(expression + '.')}>{"."}</button>
@@ -69,7 +69,11 @@ function App() {
 
         {//<button onClick={() => setTotal(stringToExpression(expression))}>{"="}</button>
 }
-        <button onClick={() =>setExpression(stringToExpression(expression).toString())}>{"="}</button>
+        <button onClick={() => { if(/[^+*/-]/.test(expression.charAt(expression.length - 1)) === true) {
+          setExpression(stringToExpression(expression).toString())
+        }  
+        }
+        }>{"="}</button>
         <br />
         {expression}
        {/*
