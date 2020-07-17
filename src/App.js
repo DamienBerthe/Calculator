@@ -5,10 +5,10 @@ function App() {
   const [expression, setExpression] = useState('');
   //const [total, setTotal] = useState(0);
   const x = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 1; i < 10; i++) {
     x.push(i)
   }
-  const y = x.map(kek => <button onClick={() => setExpression(expression + kek)}>{kek}</button>)
+  const y = x.map(kek => <button onClick={() => setExpression(filter(expression, kek))}>{kek}</button>)
 
   function filter(x, y) {
     if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true) {
@@ -20,8 +20,17 @@ function App() {
       }
     }
     else {
-      if (x.charAt(x.length - 1) === y) {
+      if (x.charAt(x.length - 1) === y && /[+*/-]/.test(y) === true) {
         return x
+      }
+      else if (x === '0' && y ==='0'){
+        return x
+      }
+      else if (x=== '0' && /[1-9]/.test(y) === true){
+        return y.toString()
+      }
+      else if(/.*[+*/-]0/.test(x) === true && /[1-9]/.test(y) === true){
+        return x.slice(0, x.length - 1) + y
       }
       else if (((x.charAt(x.length - 1)) === '-' && /[+*/]/.test(y) === true) ||
         (/[+*/]/.test(x.charAt(x.length - 1)) === true && /[+*/]/.test(y) === true && x.charAt(x.length - 1) !== y)) {
@@ -43,6 +52,7 @@ function App() {
     <div>
       <p>
         {y}
+        <button onClick={() => setExpression(filter(expression, '0'))}>{'0'}</button>
         <button onClick={() => setExpression("")}>{"AC"}</button>
         {//<button onClick={()=> setExpression(expression=>[...expression, '+'])}>{"+"}</button>
         }
