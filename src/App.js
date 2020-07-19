@@ -7,7 +7,8 @@ function App() {
   for (let i = 1; i < 10; i++) {
     x.push(i)
   }
-  const y = x.map(kek => <button onClick={() => setExpression(filter(expression, kek))}>{kek}</button>)
+  const numbersNames =['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const y = x.map(kek => <button onClick={() => setExpression(filter(expression, kek))} id={numbersNames[kek-1]}>{kek}</button>)
 
   function filter(x, y) {
     if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true && /[+*/-]/.test(y) === true) {
@@ -45,26 +46,29 @@ function App() {
     <div>
       <p>
         {y}
-        <button onClick={() => setExpression(filter(expression, '0'))}>{'0'}</button>
-        <button onClick={() => setExpression("0")}>{"AC"}</button>
+        <button onClick={() => setExpression(filter(expression, '0'))} id ="zero">{'0'}</button>
+        <button onClick={() => setExpression("0")} id ="clear">{"AC"}</button>
         <button onClick={() => {
          if (/\d+\.\d+$/.test(expression) === false) {
            setExpression(filter(expression, '.'))
           }
         }
-        }>{"."}</button>
-        <button onClick={() => setExpression(filter(expression, '+'))}>{"+"}</button>
-        <button onClick={() => setExpression(filter(expression, '-'))}>{"-"}</button>
-        <button onClick={() => setExpression(filter(expression, '*'))}>{"*"}</button>
-        <button onClick={() => setExpression(filter(expression, '/'))}>{"/"}</button>
+        } id="decimal">{"."}</button>
+        <button onClick={() => setExpression(filter(expression, '+'))} id="add">{"+"}</button>
+        <button onClick={() => setExpression(filter(expression, '-'))} id="subtract">{"-"}</button>
+        <button onClick={() => setExpression(filter(expression, '*'))} id="multiply">{"*"}</button>
+        <button onClick={() => setExpression(filter(expression, '/'))} id="divide">{"/"}</button>
         <button onClick={() => {
           if (/[^+*/.-]/.test(expression.charAt(expression.length - 1)) === true) {
             setExpression(stringToExpression(expression).toString())
           }
         }
-        }>{"="}</button>
+        } id="equals">{"="}</button>
         <br />
+        <div id="display">
         {expression}
+        </div>
+        
       </p>
     </div>
   );
