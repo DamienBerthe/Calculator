@@ -19,7 +19,7 @@ function App() {
       }
     }
     else {
-      if ((x.charAt(x.length - 1) === y && /[+*/-]/.test(y) === true) || (x === '0' && y === '0')) {
+      if ((x.charAt(x.length - 1) === y && /[+*/.-]/.test(y) === true) || (x === '0' && y === '0')) {
         return x
       }
       else if (x === '0' && /[1-9]/.test(y) === true) {
@@ -47,7 +47,12 @@ function App() {
         {y}
         <button onClick={() => setExpression(filter(expression, '0'))}>{'0'}</button>
         <button onClick={() => setExpression("0")}>{"AC"}</button>
-        <button onClick={() => setExpression(expression + '.')}>{"."}</button>
+        <button onClick={() => {
+         if (/\d+\.\d+$/.test(expression) === false) {
+           setExpression(filter(expression, '.'))
+          }
+        }
+        }>{"."}</button>
         <button onClick={() => setExpression(filter(expression, '+'))}>{"+"}</button>
         <button onClick={() => setExpression(filter(expression, '-'))}>{"-"}</button>
         <button onClick={() => setExpression(filter(expression, '*'))}>{"*"}</button>
