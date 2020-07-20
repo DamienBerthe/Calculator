@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import Button from 'react-bootstrap/Button';
 
 function App() {
   const [expression, setExpression] = useState('0');
@@ -8,7 +9,7 @@ function App() {
     x.push(i)
   }
   const numbersNames =['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-  const y = x.map(kek => <button onClick={() => setExpression(filter(expression, kek))} id={numbersNames[kek-1]}>{kek}</button>)
+  const y = x.map(kek => <Button variant="light" onClick={() => setExpression(filter(expression, kek))} id={numbersNames[kek-1]}>{kek}</Button>)
 
   function filter(x, y) {
     if (/[+*/-]/.test(x.charAt(x.length - 1)) === true && /[+*/-]/.test(x.charAt(x.length - 2)) === true && /[+*/-]/.test(y) === true) {
@@ -46,24 +47,24 @@ function App() {
     <div>
       <p>
         {y}
-        <button onClick={() => setExpression(filter(expression, '0'))} id ="zero">{'0'}</button>
-        <button onClick={() => setExpression("0")} id ="clear">{"AC"}</button>
-        <button onClick={() => {
+        <Button variant="light" onClick={() => setExpression(filter(expression, '0'))} id ="zero">{'0'}</Button>
+        <Button variant="light" onClick={() => setExpression("0")} id ="clear">{"AC"}</Button>
+        <Button variant="light" onClick={() => {
          if (/\d+\.\d+$/.test(expression) === false) {
            setExpression(filter(expression, '.'))
           }
         }
-        } id="decimal">{"."}</button>
-        <button onClick={() => setExpression(filter(expression, '+'))} id="add">{"+"}</button>
-        <button onClick={() => setExpression(filter(expression, '-'))} id="subtract">{"-"}</button>
-        <button onClick={() => setExpression(filter(expression, '*'))} id="multiply">{"*"}</button>
-        <button onClick={() => setExpression(filter(expression, '/'))} id="divide">{"/"}</button>
-        <button onClick={() => {
+        } id="decimal">{"."}</Button>
+        <Button variant="light" onClick={() => setExpression(filter(expression, '+'))} id="add">{"+"}</Button>
+        <Button variant="light" onClick={() => setExpression(filter(expression, '-'))} id="subtract">{"-"}</Button>
+        <Button variant="light" onClick={() => setExpression(filter(expression, '*'))} id="multiply">{"*"}</Button>
+        <Button variant="light" onClick={() => setExpression(filter(expression, '/'))} id="divide">{"/"}</Button>
+        <Button variant="light" onClick={() => {
           if (/[^+*/.-]/.test(expression.charAt(expression.length - 1)) === true) {
             setExpression(stringToExpression(expression).toString())
           }
         }
-        } id="equals">{"="}</button>
+        } id="equals">{"="}</Button>
         <br />
         <div id="display">
         {expression}
