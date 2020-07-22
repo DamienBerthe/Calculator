@@ -25,7 +25,7 @@ function App() {
       if ((x.charAt(x.length - 1) === y && /[+*/.-]/.test(y) === true) || (x === '0' && y === '0')) {
         return x
       }
-      else if ((x === '0' && /[1-9]/.test(y) === true)||(ans!=='0'&& expression===ans && /[-9-9]/.test(y) === true)) {
+      else if ((x === '0' && /[1-9]/.test(y) === true)||(ans!=='0'&& expression===ans && /[1-9]/.test(y) === true)) {
         return y.toString()
       }
       else if ((/.*[+*/-]0/.test(x) === true && /[1-9]/.test(y) === true)
